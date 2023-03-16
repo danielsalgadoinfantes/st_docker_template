@@ -5,7 +5,7 @@ A template to start developing with streamlit &amp; docker
 ## Step 1 
 clone the repo
 ```
-git clone https://github.com/maker57sk/st_docker_template.git
+https://github.com/danielsalgadoinfantes/st_docker_template.git
 ```
 
 ## step 2
