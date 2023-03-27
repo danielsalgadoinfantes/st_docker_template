@@ -5,4 +5,4 @@ services:
     volumes:
       - .:/app
     ports:
-      - 8501:8501
+      - 8802:8501

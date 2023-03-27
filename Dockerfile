@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10.9
 
 COPY requirements.txt app/requirements.txt
 
@@ -8,6 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-EXPOSE 8501
+EXPOSE 8802 
 
 CMD ["streamlit", "run", "app.py"]

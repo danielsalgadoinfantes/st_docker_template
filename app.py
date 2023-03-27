@@ -1,6 +1,8 @@
 # streamlit app basic template with docker 
 import streamlit as st
 
+idiomas = ["Ingles", "Español"]
+
 st.set_page_config(
      page_title="Streamlit App",
      page_icon='✌️',
@@ -9,8 +11,18 @@ st.set_page_config(
 
 
 def main():
-    st.write('Welcome to Streamlit in Docker')
 
+    uploaded_file = st.file_uploader(label="Selecciona un archivo", type="mp3")
+
+    if uploaded_file is not None:
+        # Aquí puedes realizar cualquier acción que desees con el archivo subido
+        st.write("Archivo subido correctamente")
+
+    st.write('Hola mundo')
+
+    opciones_seleccionadas = st.selectbox("Selecciona idioma del audio", idiomas)
+
+    st.write("Has seleccionado el siguiente idioma de audio:", opciones_seleccionadas)
 
 
 if __name__ == '__main__':
