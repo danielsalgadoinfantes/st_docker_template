@@ -1,5 +1,7 @@
 # streamlit app basic template with docker 
 import streamlit as st
+import uploaders.uploader as up
+
 
 idiomas = ["Ingles", "Español"]
 
@@ -16,7 +18,8 @@ def main():
 
     if uploaded_file is not None:
         # Aquí puedes realizar cualquier acción que desees con el archivo subido
-        st.write("Archivo subido correctamente")
+        up.upload_file("victorupm.duckdns.org", "tmp", "d4n13l2023")
+        #st.write("Archivo subido correctamente")
 
     st.write('Hola mundo')
 
