@@ -22,7 +22,7 @@ def main():
         serv.upload_file(uploaded_file)
         #st.write("Archivo subido correctamente")
 
-    st.write('Hola mundo')
+        st.write('Hola mundo')
 
     opciones_seleccionadas = st.selectbox("Selecciona idioma del audio", idiomas)
 

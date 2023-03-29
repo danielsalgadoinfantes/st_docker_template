@@ -1,4 +1,4 @@
 streamlit
-paramiko
+paramiko==2.7.2
 python-dotenv
 
