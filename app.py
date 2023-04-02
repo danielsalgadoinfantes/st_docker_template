@@ -26,15 +26,17 @@ def main():
         st.audio(audio_bytes)
 
         # Opciones de ejecución de whisper
-        opciones_seleccionadas = st.selectbox("Selecciona idioma del audio", idiomas)
-        st.write("Has seleccionado el siguiente idioma de audio:", opciones_seleccionadas)
+        idioma = st.selectbox("Selecciona idioma del audio", idiomas)
+        st.write("Has seleccionado el siguiente idioma de audio:", idioma)
         
         holder=st.empty()
         # Subir audio a serv remoto
         if holder.button('Cargar archivo'):
             serv.upload(uploaded_file)
-            serv.whisper(uploaded_file)
             holder.empty()
+            with st.spinner("Cargando..."):
+                serv.whisper(uploaded_file, idioma)
+            serv.result()
 
     
 

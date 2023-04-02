@@ -41,17 +41,18 @@ class serv:
 
         st.write("Archivo subido correctamente")
 
-    def whisper(self, file):
+    def whisper(self, file, len):
         ssh = self.open_conexion()
 
-        comand='CUDA_VISIBLE_DEVICES=1 whisper samples/sample --model small'
+        if len == "Ingles":
+            lan = "English"
+        else:
+            lan = "Spanish"
+
+        comand='CUDA_VISIBLE_DEVICES=1 whisper samples/sample --model small --output_format txt --language {} --output_dir samples'.format(lan)
         stdin, stdout, stderr = ssh.exec_command(comand)
 
-        # Guardar la salida en una variable
-        output = stdout.read().decode()
-
-        # Imprimir la salida en la interfaz de usuario
-        st.write(output)
+        
 
         # Imprimir el error en caso de que algo falle
         if stderr.channel.recv_exit_status() != 0:
@@ -59,3 +60,14 @@ class serv:
 
         ssh.close()
 
+    def result(self):
+        # Leer el archivo .txt en el servidor remoto
+        ssh = self.open_conexion()
+        stdin, stdout, stderr = ssh.exec_command('cat samples/sample.txt')
+        contenido = stdout.read().decode()
+
+        # Mostrar el contenido del archivo en Streamlit
+        with st.container():
+            st.write("Transcripción: ")
+            st.text(contenido)
+        ssh.close()
