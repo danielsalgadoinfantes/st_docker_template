@@ -1,5 +1,16 @@
 streamlit
+streamlit_option_menu
 paramiko==2.7.2
 python-dotenv
-
+openai
+nltk
+pydub
+ffprobe
+requests
+pandas
+numpy
+streamlit-toggle-switch
+sentence-transformers
+Pillow==9.0.0
+scikit-learn
 

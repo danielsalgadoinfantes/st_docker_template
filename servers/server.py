@@ -2,13 +2,13 @@ import paramiko
 import streamlit as st
 import os
 from dotenv import load_dotenv
-
+from ia.chatgpt import Chatgpt
 
 
 
 class serv:
     def __init__(self):
-        load_dotenv(dotenv_path="cred.env")
+        load_dotenv(dotenv_path="config/cred.env")
         self.username_host = os.environ.get("USER_HOST")
         self.password_host = os.environ.get("PASSWORD_HOST")
         self.server_host = os.environ.get("SERVER_HOST")
@@ -35,13 +35,13 @@ class serv:
             file.seek(0)
             sftp.putfo(file, remotepath)
 
-        # Cerrar la conexión SFTP y la conexión con el segundo servidor remoto y el primer servidor remoto
+        # Cerrar la conexión SFTP y la conexión con el servidor remoto
         sftp.close()
         ssh1.close()
 
         st.write("Archivo subido correctamente")
 
-    def whisper(self, file, len):
+    def whisper(self, file, len, model):
         ssh = self.open_conexion()
 
         if len == "Ingles":
@@ -49,10 +49,8 @@ class serv:
         else:
             lan = "Spanish"
 
-        comand='CUDA_VISIBLE_DEVICES=1 whisper samples/sample --model small --output_format txt --language {} --output_dir samples'.format(lan)
+        comand='CUDA_VISIBLE_DEVICES=1 whisper samples/sample --model {} --output_format txt --language {} --output_dir samples'.format(model, lan)
         stdin, stdout, stderr = ssh.exec_command(comand)
-
-        
 
         # Imprimir el error en caso de que algo falle
         if stderr.channel.recv_exit_status() != 0:
@@ -60,14 +58,17 @@ class serv:
 
         ssh.close()
 
-    def result(self):
+    def result(self, parrafear):
         # Leer el archivo .txt en el servidor remoto
         ssh = self.open_conexion()
         stdin, stdout, stderr = ssh.exec_command('cat samples/sample.txt')
-        contenido = stdout.read().decode()
+        respuesta = stdout.read().decode()
 
-        # Mostrar el contenido del archivo en Streamlit
-        with st.container():
-            st.write("Transcripción: ")
-            st.text(contenido)
+        if parrafear:
+            #st.write(contenido)
+            chat = Chatgpt()
+            respuesta = chat.respuesta(respuesta)
+
         ssh.close()
+        return respuesta
+    
