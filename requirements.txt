@@ -9,6 +9,11 @@ ffprobe
 requests
 pandas
 numpy
+pyannote.audio
+pywebview
+streamlit-bokeh-events
+pandas
+bokeh
 streamlit-toggle-switch
 sentence-transformers
 Pillow==9.0.0

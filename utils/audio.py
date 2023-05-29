@@ -12,9 +12,9 @@ class Audio:
         file_size_mb = file_size_bytes / (1024 * 1024)
         # Comprobar si el tamaño es mayor que 25MB
         if file_size_mb > 25:
-            return True
-        else:
             return False
+        else:
+            return True
 
 
 
