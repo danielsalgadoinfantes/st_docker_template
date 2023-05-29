@@ -20,10 +20,20 @@ serv = serv()
 C = Constants()
 
 st.set_page_config(
-     page_title="Streamlit App",
+     page_title="Audio Transcripter",
      page_icon='✌️',
      layout="wide",
-     initial_sidebar_state="expanded")
+     initial_sidebar_state="collapsed")
+
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
 def set_stage(stage):
@@ -37,6 +47,8 @@ def set_originalystage(stage):
 def main():
 
     mail = Gmail()
+
+    st.title("AUDIO TRANSCRIPTER")
 
     # Llamada a st.file_uploader para poder subir el archivo de audio
     uploaded_file = st.file_uploader(label="Selecciona un archivo", type=C.AUDIO_TYPE)
@@ -173,7 +185,7 @@ def main():
 
             holder.button('Cargar archivo', on_click=set_stage, args=(1,))
             st.session_state.mail_valido = mail.check(st.session_state.reciever)
-            if not st.session_state.mail_valido:
+            if not st.session_state.mail_valido and st.session_state.reciever != "":
                 txt_rojo = '<div style="display: flex; justify-content: center;"><font color="red">' \
                            'Correo electrónico no válido</font></div>'
                 error_placeholder_email.write(txt_rojo, unsafe_allow_html=True)
