@@ -36,8 +36,8 @@ class Chatgpt:
     
 
     def respuesta(self, contenido):
-
         fragmentos = Nltk.dividir_texto(contenido)
+
         pregunta = "Tengo un texto sin dividir en párrafos, es decir, en una sola linea. Quiero que lo dividas en párrafos sin cambiar ni una sola palabra. Un requisito importante es que tenga un formato muy estricto, el cual es el siguiente: [parrafo 1]: " \
                    "contenido párrafo 1\n[parrafo 2]: contenido párrafo 2\n...[parrafo n]: contenido párrafo n. Una última petición es que no escribas nada de introducción como por ejemplo: Aquí tienes tu texto o algo similar. Aquí te muestro el texto que" \
                    " quiero que dividas en párrafos tal y como te he descrito: "

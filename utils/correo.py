@@ -11,7 +11,8 @@ class Gmail:
 
     def __init__(self):
         load_dotenv(dotenv_path="config/cred.env")
-        self.sender = os.environ.get("GMAIL")#.replace('"', '')
+        self.sender = os.environ.get("GMAIL")
+
         if self.sender.endswith('"') or self.sender.endswith("'"):
             self.sender = self.sender[:-1]
         self.password = os.environ.get("GMAIL_PASSWORD")

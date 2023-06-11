@@ -1,5 +1,7 @@
 import os
 
+import pyannote.audio
+
 from ia.whisper import Whisper
 from pyannote.audio import Pipeline
 import tempfile
@@ -8,6 +10,7 @@ from pydub import AudioSegment
 from servers.server import serv
 from ia.chatgpt import Chatgpt
 import uuid
+from ia.chatgpt import Chatgpt
 import streamlit as st
 
 
@@ -76,9 +79,9 @@ class SpeakerDiarization:
                 else:
                     if (ini_anterior is not None and end_anterior is not None) and 1000<(end_anterior-ini_anterior):
 
-                        #st.write(f"[{speaker_anterior}]: {ini_anterior}, {end_anterior}")
-
                         fragmento_txt = SpeakerDiarization.whisper(i, ini_anterior, end_anterior,audio, lan, model, clave, translate)
+
+                        #st.write(f"[{speaker}] --> ({ini_anterior}, {end_anterior})")
 
                         numero_actual += 1
 

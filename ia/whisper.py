@@ -6,6 +6,7 @@ from utils.solapamiento import Solapamiento
 from ia.chatgpt import Chatgpt
 from utils.audio import Audio
 import uuid
+import streamlit as st
 
 class Whisper():
 
@@ -54,6 +55,8 @@ class Whisper():
 
             responses.append(response)
 
+            #st.write(f"Fragmento {i}: {response}")
+
             # calcula el inicio y el fin del solapamiento entre 2 fragmentos sucesivos
             ini = (i+1)*self.diez_minutos - self.diez_seg
             end = (i+1)*self.diez_minutos + self.diez_seg
@@ -67,6 +70,8 @@ class Whisper():
                 solap_response = self.llamada_a_whisper(solapamiento_path, solapamiento_audio, lan, translate)
 
                 solapamientos.append(solap_response)
+
+                #st.write(f"Solapamiento {i}: {solap_response}")
 
             #corta el fragmento anterior hasta la parte que marca el solapamiento
             if i > 0:

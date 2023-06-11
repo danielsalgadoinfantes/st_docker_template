@@ -33,7 +33,7 @@ hide_st_style = """
             header {visibility: hidden;}
             </style>
             """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+#st.markdown(hide_st_style, unsafe_allow_html=True)
 
 
 def set_stage(stage):
@@ -231,13 +231,16 @@ def main():
 
                         st.session_state.resp_sinparraf=serv.sin_p(nombre)
 
-                        respuesta = serv.result(st.session_state.parraf, nombre)
+                        respuesta = ""
+                        if st.session_state.parraf:
+                            chat = Chatgpt(None)
+                            respuesta = chat.respuesta(st.session_state.resp_sinparraf)
 
                         st.session_state.resp = respuesta
                         progreso += 15
                         barra.progress(progreso, text="Enviando correo")
 
-                col0, col1, espacio, col2, col3, col4 = st.columns([0.5, 0.5, 0.25, 1.5, 23.5, 2])
+                col0, col1, espacio, col2, col3, col4 = st.columns([0.5, 0.5, 0.25, 1.75, 23.5, 2])
 
                 if mail.check(st.session_state.reciever):
                     if st.session_state.parraf:
@@ -324,15 +327,16 @@ def main():
                             st.session_state.resp_sinparraf = respuesta
 
                             progreso += 60
+                            respuesta = ""
                             if st.session_state.parraf:
                                 barra.progress(progreso, text="Dividiendo en parrafos")
-                                respuesta = whisper.result(respuesta)
-                                st.session_state.resp = respuesta
-
+                                chat = Chatgpt(clave)
+                                respuesta = chat.respuesta(st.session_state.resp_sinparraf)
+                            st.session_state.resp = respuesta
                             progreso+=15
                             barra.progress(progreso, text="Enviando correo")
 
-                    col0, col1, espacio, col2, col3, col4 = st.columns([0.5, 0.5, 0.25, 1.5, 23.5, 2])
+                    col0, col1, espacio, col2, col3, col4 = st.columns([0.5, 0.5, 0.25, 1.75, 23.5, 2])
 
                     if mail.check(st.session_state.reciever):
                         if st.session_state.parraf:
