@@ -1,7 +1,5 @@
 import os
 
-import pyannote.audio
-
 from ia.whisper import Whisper
 from pyannote.audio import Pipeline
 import tempfile
@@ -10,7 +8,6 @@ from pydub import AudioSegment
 from servers.server import serv
 from ia.chatgpt import Chatgpt
 import uuid
-from ia.chatgpt import Chatgpt
 import streamlit as st
 
 

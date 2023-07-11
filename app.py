@@ -146,17 +146,22 @@ def main():
                 st.session_state.translate = translate
 
         # Opciones de ejecución de whisper
-        col1, col2, col3, col4 = st.columns(4)
+
+        if st.session_state.option == "Servidor remoto":
+            col1, col2, col3, col4 = st.columns(4)
+        else:
+            col1, col2, col3 = st.columns(3)
 
         with col2:
-
             idioma = st.selectbox("Selecciona el idioma del audio", C.IDIOMAS)
             st.write("Has seleccionado el siguiente idioma de audio:", idioma)
 
-        with col3:
+        if st.session_state.option == "Servidor remoto":
 
-            model = st.selectbox("Selecciona un modelo de whisper", C.MODELS)
-            st.write("Has seleccionado el siguiente modelo:", model)
+            with col3:
+
+                model = st.selectbox("Selecciona un modelo de whisper", C.MODELS)
+                st.write("Has seleccionado el siguiente modelo:", model)
 
         if st.session_state.option == "API de whisper":
             col1, col2, col3, col4 = st.columns(4)
